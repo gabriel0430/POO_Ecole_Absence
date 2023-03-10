@@ -26,6 +26,4 @@ class Exel :
             print(Date_end)
 
 
-            absent = Prof(nom, surname, Date_end)
-
-
+            #absent = Prof(nom, surname, Date_end)
