@@ -2,6 +2,7 @@ import openpyxl
 
 from prof import Prof
 
+
 class Exel :
 
     def __init__(self):
