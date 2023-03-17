@@ -10,12 +10,25 @@ class Prof:
         Date_end = self.Date_end
 
 
-    def verifier(self):
-         if self.presence == True:
-             print('le prof est present')
+    def Affiche_Absent(self):
+        print(str(self.name+self.surname))
+        #test_memory = (self.name+ ""+ self.surname)
+        #print(test_memory)
 
-         if self.presence == False:
-             print(self.name, self.surname, "n'est pas présent")
+
 
     def utile(self):
-        print(self.name +" "+ self.surname+ " " + "ne sera pas present jusqu'au "+self.Date_end)
+        self.Date_STR = str(self.Date_end)
+        texte = (self.name +" "+ self.surname)
+        print ( texte )
+
+
+
+
+
+    def verifier(self):
+        if self.presence == True:
+            print('le prof est present')
+
+        if self.presence == False:
+            print(self.name, self.surname, "n'est pas présent")
