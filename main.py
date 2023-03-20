@@ -3,4 +3,4 @@ from exel import Exel
 
 if __name__=='__main__':
     test = Exel()
-    test.action()
+    test.Auto_run()

@@ -13,42 +13,55 @@ class Exel :
         # Trouver le nombre de ligne de la feuille de calcul
         self.nombre_ligne = self.feuille.max_row
         self.nombre_ligne = (self.nombre_ligne - 1)
+        self.date_save = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
         self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
+
+
+
+    def reload(self):
+
         self.date_save = self.modified_date
-
-    def action(self):
-
-
         #self.nombre_ligne = self.feuille.max_row
         #return self.nombre_ligne
+        while True:
+            print(self.date_save)
+            self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
+            if self.modified_date != self.date_save:
+                print("changement ")
+                self.date_save = self.modified_date
+                self.retake = False
+
+
+
+    def Extrad(self):
 
         for i in range(1, self.nombre_ligne):
-            #print(i)
+
             i = i +1
 
             Input_Name = self.feuille.cell(row=i, column=1).value
-            #print(Input_Name)
             Input_Surname = self.feuille.cell(row=i, column=2).value
-            #print(Input_Surname)
-            Input_Date_end = self.feuille.cell(row=i, column=3).value
-            #print(Input_Date_end)
+            #Input_Date_end = self.feuille.cell(row=i, column=3).value
 
-            Input_Date_end =" inserer la date "
 
             Prof.name = Input_Name
             Prof.surname = Input_Surname
-            Prof.Date_end = Input_Date_end
-            print ( self.date_save )
-            print ( self.modified_date )
+            #Prof.Date_end = Input_Date_end
 
 
-            prof_com = Prof(name=Input_Name,surname=Input_Surname,Date_end=Input_Date_end)
+            prof_com = Prof(name=Input_Name,surname=Input_Surname)
 
             prof_com.Affiche_Absent()
 
+    def Auto_run(self):
+
         while True:
-            if self.modified_date != self.date_save:
-                print("changement ")
+            Exel.Extrad()
+            while self.retake:
+                Exel.reload()
+            self.retake = True
+
+
 
 
 """ def convert(date_time):
@@ -60,6 +73,8 @@ class Exel :
 instancier ou faire une referance
 
 z = WWW 
+apatchi 
+endigs 
 
 sinon Prenom.nom    .TTinfo.be"""
 
