@@ -4,28 +4,31 @@ from prof import Prof
 import datetime
 import time
 
+file_name = 'Classeur1.xlsx'
+feuille_name = 'Absence Prof'
+
 class Exel :
     def __init__(self):
+        self.readFile()
+        self.retake = True
+
+    def readFile(self):
         # Ouvrir le fichier Excel
-        self.wb = openpyxl.load_workbook('Classeur1.xlsx')
+        self.wb = openpyxl.load_workbook(file_name)
         # Sélectionner une feuille spécifique
-        self.feuille = self.wb['Absence Prof']
+        self.feuille = self.wb[feuille_name]
         # Trouver le nombre de ligne de la feuille de calcul
         self.nombre_ligne = self.feuille.max_row
         self.nombre_ligne = (self.nombre_ligne - 2)
-        self.date_save = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
-        self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
-        self.retake = True
+        self.date_save = datetime.datetime.fromtimestamp(os.path.getmtime(file_name))
+        self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_name))
 
 
     def reload(self):
 
         self.date_save = self.modified_date
-        #self.nombre_ligne = self.feuille.max_row
-        #return self.nombre_ligne
 
-
-        self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
+        self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_name))
 
         if self.modified_date != self.date_save:
 
@@ -37,7 +40,7 @@ class Exel :
 
 
     def Data(self):
-
+        self.readFile()
         for i in range(1, self.nombre_ligne):
             i = i+1
 
