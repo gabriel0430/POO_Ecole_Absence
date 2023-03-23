@@ -12,10 +12,10 @@ class Exel :
         self.feuille = self.wb['Absence Prof']
         # Trouver le nombre de ligne de la feuille de calcul
         self.nombre_ligne = self.feuille.max_row
-        self.nombre_ligne = (self.nombre_ligne - 1)
+        self.nombre_ligne = (self.nombre_ligne - 2)
         self.date_save = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
         self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
-
+        self.retake = True
 
 
     def reload(self):
@@ -23,42 +23,53 @@ class Exel :
         self.date_save = self.modified_date
         #self.nombre_ligne = self.feuille.max_row
         #return self.nombre_ligne
-        while True:
-            print(self.date_save)
-            self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
-            if self.modified_date != self.date_save:
-                print("changement ")
+
+
+        self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime('Classeur1.xlsx'))
+
+        if self.modified_date != self.date_save:
+
                 self.date_save = self.modified_date
                 self.retake = False
+                return self.retake
+                print('changement')
 
 
 
-    def Extrad(self):
+    def Data(self):
 
         for i in range(1, self.nombre_ligne):
+            i = i+1
 
-            i = i +1
+            Input_Name = str(self.feuille.cell(row=i, column=1).value)
+            #return self.Input_Name
+            Input_Surname = str(self.feuille.cell(row=i, column=2).value)
+            #return self.Input_Surname
 
-            Input_Name = self.feuille.cell(row=i, column=1).value
-            Input_Surname = self.feuille.cell(row=i, column=2).value
-            #Input_Date_end = self.feuille.cell(row=i, column=3).value
-
-
+            #Data_name = self.Input_Name
             Prof.name = Input_Name
             Prof.surname = Input_Surname
-            #Prof.Date_end = Input_Date_end
 
+            # vidé la note (liste prof)
 
             prof_com = Prof(name=Input_Name,surname=Input_Surname)
 
             prof_com.Affiche_Absent()
 
+
+
     def Auto_run(self):
 
         while True:
-            Exel.Extrad()
+            self.Data()
+            print("1")
             while self.retake:
-                Exel.reload()
+                self.reload()
+                print("2")
+                time.sleep(1)
+
+            print("3")
+            time.sleep(1)
             self.retake = True
 
 

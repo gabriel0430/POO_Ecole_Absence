@@ -14,3 +14,9 @@ class Prof:
 
         texte = str(self.name + " " + self.surname)
         print(texte)
+        # ajouter la liste a un note
+        # lire la note et l'afficher
+
+
+
+
