@@ -6,6 +6,7 @@ import time
 
 file_name = 'Classeur1.xlsx'
 feuille_name = 'Absence Prof'
+Nombre_Prof = 150
 
 class Exel :
     def __init__(self):
@@ -18,8 +19,7 @@ class Exel :
         # Sélectionner une feuille spécifique
         self.feuille = self.wb[feuille_name]
         # Trouver le nombre de ligne de la feuille de calcul
-        self.nombre_ligne = self.feuille.max_row
-        self.nombre_ligne = (self.nombre_ligne - 2)
+        self.nombre_Prof = Nombre_Prof
         self.date_save = datetime.datetime.fromtimestamp(os.path.getmtime(file_name))
         self.modified_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_name))
 
@@ -41,7 +41,9 @@ class Exel :
 
     def Data(self):
         self.readFile()
-        for i in range(1, self.nombre_ligne):
+        print(self.nombre_Prof)
+
+        for i in range(1, self.nombre_Prof ):
             i = i+1
 
             Input_Name = str(self.feuille.cell(row=i, column=1).value)
@@ -57,21 +59,22 @@ class Exel :
 
             prof_com = Prof(name=Input_Name,surname=Input_Surname)
 
-            prof_com.Affiche_Absent()
+            prof_com.Data_Absent()
+
 
 
 
     def Auto_run(self):
-
         while True:
+            print("")
+            print("reload")
+            print("")
             self.Data()
-            print("1")
+
             while self.retake:
                 self.reload()
-                print("2")
                 time.sleep(1)
 
-            print("3")
             time.sleep(1)
             self.retake = True
 
